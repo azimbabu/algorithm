@@ -54,9 +54,10 @@ public class CountInversion {
     }
 
     public static void main(String[] args) {
-        testCase(new int[]{1, 3, 5, 2, 4, 6});
-        testCase(new int[]{1, 2, 3, 4, 5, 6});
-        testCase(new int[]{6, 5, 4, 3, 2, 1});
+        testCase(new int[]{1, 3, 5, 2, 4, 6});  // expected 3
+        testCase(new int[]{1, 2, 3, 4, 5, 6});  // expected 0
+        testCase(new int[]{6, 5, 4, 3, 2, 1});  // expected 15
+        testCase(new int[]{54044, 14108, 79294, 29649, 25260, 60660, 2995, 53777, 49689, 9083});    // expected 28
     }
 
     private static void testCase(int[] array) {
