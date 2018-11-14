@@ -3,7 +3,7 @@ package sorting;
 import java.util.Arrays;
 import java.util.Random;
 
-public class RandomizedQuickSort {
+public class QuickSort3WayPartitioning {
 
     public static final Random RANDOM = new Random();
 
@@ -13,26 +13,31 @@ public class RandomizedQuickSort {
 
     private static void sort(int[] array, int left, int right) {
         if (left < right) {
-            int partitionIndex = partition(array, left, right);
-            sort(array, left, partitionIndex-1);
-            sort(array, partitionIndex+1, right);
-        }
-    }
+            int randomIndex = getRandom(left, right);
+            swap(array, randomIndex, left);
 
-    private static int partition(int[] array, int left, int right) {
-        int randomIndex = getRandom(left, right);
-        swap(array, randomIndex, right);
+            int lt = left, gt = right, i = left+1;
+            int key = array[lt];
 
-        int key = array[right];
-        int i = left - 1;
-        for (int j = left; j < right; j++) {
-            if (array[j] <= key) {
-                i = i + 1;
-                swap(array, i, j);
+            while (i <= gt) {
+                // loop invariant :
+                // array[left..lt-1] < key ,
+                // array[lt..i-1] == key
+                // array[i..gt] not yet examined
+                // array[gt+1..right] > key
+                int compare = Integer.compare(array[i], key);
+                if (compare < 0) {
+                    swap(array, lt++, i++);
+                } else if (compare > 0) {
+                    swap(array, gt--, i);
+                } else {
+                    i++;
+                }
             }
+
+            sort(array, left, lt-1);
+            sort(array, gt+1, right);
         }
-        swap(array, i+1, right);
-        return i+1;
     }
 
     private static int getRandom(int min, int max) {
@@ -55,7 +60,7 @@ public class RandomizedQuickSort {
     private static void testCase(int[] array) {
         System.out.println("Unsorted=" + Arrays.toString(array));
         // sort
-        RandomizedQuickSort.sort(array);
+        QuickSort3WayPartitioning.sort(array);
         System.out.println(String.format("Sorted=%s", Arrays.toString(array)));
     }
 }
