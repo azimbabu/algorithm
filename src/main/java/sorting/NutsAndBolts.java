@@ -1,11 +1,8 @@
 package sorting;
 
 import java.util.Arrays;
-import java.util.Random;
 
 public class NutsAndBolts {
-
-    private static final Random RANDOM = new Random();
 
     public static void matchPairs(char[] nuts, char[] bolts) {
         matchPairs(nuts, bolts, 0, bolts.length-1);
