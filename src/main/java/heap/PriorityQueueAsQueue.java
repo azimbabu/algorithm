@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class QueueUsingPriorityQueue {
+public class PriorityQueueAsQueue {
 
     private static class Element {
         private int key;
@@ -23,7 +23,7 @@ public class QueueUsingPriorityQueue {
     private PriorityQueue<Element> priorityQueue;
     private AtomicInteger counter;
 
-    public QueueUsingPriorityQueue() {
+    public PriorityQueueAsQueue() {
         priorityQueue = new PriorityQueue<>(Comparator.comparing(Element::getKey));
         counter = new AtomicInteger(Integer.MIN_VALUE);
     }
@@ -49,7 +49,7 @@ public class QueueUsingPriorityQueue {
     }
 
     public static void main(String[] args) {
-        QueueUsingPriorityQueue queue = new QueueUsingPriorityQueue();
+        PriorityQueueAsQueue queue = new PriorityQueueAsQueue();
         queue.enqueue(4);
         queue.enqueue(1);
         queue.enqueue(3);
