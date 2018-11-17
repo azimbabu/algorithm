@@ -2,6 +2,8 @@ package sorting;
 
 import java.util.Arrays;
 
+import static util.Utils.swap;
+
 public class NutsAndBolts {
 
     public static void matchPairs(char[] nuts, char[] bolts) {
@@ -31,12 +33,6 @@ public class NutsAndBolts {
         }
         swap(array, i+1, right);
         return i+1;
-    }
-
-    private static void swap(char[] array, int i, int j) {
-        char temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
     }
 
     public static void main(String[] args) {

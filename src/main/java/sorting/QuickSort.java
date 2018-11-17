@@ -2,6 +2,8 @@ package sorting;
 
 import java.util.Arrays;
 
+import static util.Utils.swap;
+
 public class QuickSort {
 
     public static void sort(int[] array) {
@@ -27,12 +29,6 @@ public class QuickSort {
         }
         swap(array, i+1, right);
         return i+1;
-    }
-
-    private static void swap(int[] array, int i, int j) {
-        int temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
     }
 
     public static void main(String[] args) {

@@ -1,6 +1,10 @@
 package sorting;
 
+import util.Utils;
+
 import java.util.Arrays;
+
+import static util.Utils.swap;
 
 public class SelectionSort {
 
@@ -15,12 +19,6 @@ public class SelectionSort {
             }
             swap(array, i, minIndex);
         }
-    }
-
-    private static void swap(int[] array, int i, int j) {
-        int temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
     }
 
     public static void main(String[] args) {
