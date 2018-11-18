@@ -2,7 +2,9 @@ package heap;
 
 import util.Utils;
 
+import static heap.MaxHeap.left;
 import static heap.MaxHeap.parent;
+import static heap.MaxHeap.right;
 import static util.Utils.swap;
 
 public class MaxPriorityQueue {
@@ -71,6 +73,26 @@ public class MaxPriorityQueue {
         maxHeap.setHeapSize(maxHeap.getHeapSize()+1);
         array[maxHeap.getHeapSize()-1] = Integer.MIN_VALUE;
         heapIncreaseKey(maxHeap.getHeapSize()-1, key);
+    }
+
+    /**
+     * The operation HEAP-DELETE (A,i) deletes the item in node i from heap A.
+     * Give an implementation of HEAP-DELETE that runs in O(lg n) time for an n-element max heap.
+     * @param i
+     * @return
+     */
+    public int maxHeapDelete(int i) {
+        checkEmpty();
+
+        if (maxHeap.getHeapSize() <= i) {
+            throw new RuntimeException("Not found");
+        }
+
+        int value = array[i];
+        array[i] = array[maxHeap.getHeapSize()-1];
+        maxHeap.setHeapSize(maxHeap.getHeapSize()-1);
+        maxHeap.maxHeapify(i);
+        return value;
     }
 
     private void checkHeapSize() {
