@@ -1,15 +1,15 @@
-package linkedlist;
+package linkedlist.singly;
 
-public class SinglyListNode {
+public class ListNode {
 
     private int key;
-    private SinglyListNode next;
+    private ListNode next;
 
-    public SinglyListNode(int key) {
+    public ListNode(int key) {
         this.key = key;
     }
 
-    public SinglyListNode(int key, SinglyListNode next) {
+    public ListNode(int key, ListNode next) {
         this.key = key;
         this.next = next;
     }
@@ -22,11 +22,11 @@ public class SinglyListNode {
         this.key = key;
     }
 
-    public SinglyListNode getNext() {
+    public ListNode getNext() {
         return next;
     }
 
-    public void setNext(SinglyListNode next) {
+    public void setNext(ListNode next) {
         this.next = next;
     }
 }

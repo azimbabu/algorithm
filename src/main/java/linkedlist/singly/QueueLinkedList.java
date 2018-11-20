@@ -1,15 +1,15 @@
-package linkedlist;
+package linkedlist.singly;
 
 public class QueueLinkedList {
 
-    private SinglyLinkedList list;
+    private LinkedList list;
 
     public QueueLinkedList() {
-        list = new SinglyLinkedList();
+        list = new LinkedList();
     }
 
     public void enqueue(int value) {
-        list.addLast(new SinglyListNode(value));
+        list.addLast(new ListNode(value));
     }
 
     public int dequeue() {

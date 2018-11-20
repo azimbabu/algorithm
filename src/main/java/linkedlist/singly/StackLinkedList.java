@@ -1,15 +1,15 @@
-package linkedlist;
+package linkedlist.singly;
 
 public class StackLinkedList {
 
-    private SinglyLinkedList list;
+    private LinkedList list;
 
     public StackLinkedList() {
-        list = new SinglyLinkedList();
+        list = new LinkedList();
     }
 
     public void push(int value) {
-        list.addFirst(new SinglyListNode(value));
+        list.addFirst(new ListNode(value));
     }
 
     public int pop() {

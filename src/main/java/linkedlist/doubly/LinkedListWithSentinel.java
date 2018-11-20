@@ -1,4 +1,4 @@
-package linkedlist;
+package linkedlist.doubly;
 
 public class LinkedListWithSentinel {
     private ListNode sentinelNode;

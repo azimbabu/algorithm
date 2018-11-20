@@ -1,22 +1,22 @@
-package linkedlist;
+package linkedlist.singly;
 
-public class SinglyLinkedList {
+public class LinkedList {
 
-    private SinglyListNode head, tail;
+    private ListNode head, tail;
 
-    public SinglyLinkedList() {
+    public LinkedList() {
         head = tail = null;
     }
 
-    public SinglyListNode search(int key) {
-        SinglyListNode current = head;
+    public ListNode search(int key) {
+        ListNode current = head;
         while (current != null && current.getKey() != key) {
             current = current.getNext();
         }
         return current;
     }
 
-    public void addFirst(SinglyListNode node) {
+    public void addFirst(ListNode node) {
         node.setNext(head);
         head = node;
         if (tail == null) {
@@ -24,7 +24,7 @@ public class SinglyLinkedList {
         }
     }
 
-    public void addLast(SinglyListNode node) {
+    public void addLast(ListNode node) {
         if (tail != null) {
             tail.setNext(node);
         }
@@ -62,9 +62,9 @@ public class SinglyLinkedList {
     }
 
     public void reverse() {
-        SinglyListNode prev = null, current = head;
+        ListNode prev = null, current = head;
         while (current != null) {
-            SinglyListNode next = current.getNext();
+            ListNode next = current.getNext();
             current.setNext(prev);
             prev = current;
             current = next;
@@ -76,7 +76,7 @@ public class SinglyLinkedList {
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        SinglyListNode current = head;
+        ListNode current = head;
         while (current != null) {
             sb.append(current.getKey());
             if (current.getNext() != null) {
@@ -96,9 +96,9 @@ public class SinglyLinkedList {
     }
 
     private static void testReverse(int[] array) {
-        SinglyLinkedList list = new SinglyLinkedList();
+        LinkedList list = new LinkedList();
         for (int value : array) {
-            list.addLast(new SinglyListNode(value));
+            list.addLast(new ListNode(value));
         }
         System.out.println("List : " + list);
         list.reverse();

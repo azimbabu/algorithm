@@ -1,4 +1,4 @@
-package linkedlist;
+package linkedlist.doubly;
 
 public class ListNode {
     private int key;
