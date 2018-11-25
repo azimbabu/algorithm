@@ -3,6 +3,7 @@ package sorting;
 import java.util.Arrays;
 import java.util.Random;
 
+import static util.Utils.getRandom;
 import static util.Utils.swap;
 
 public class RandomizedQuickSort {
@@ -22,7 +23,7 @@ public class RandomizedQuickSort {
     }
 
     private static int partition(int[] array, int left, int right) {
-        int randomIndex = getRandom(left, right);
+        int randomIndex = getRandom(RANDOM, left, right);
         swap(array, randomIndex, right);
 
         int key = array[right];
@@ -35,10 +36,6 @@ public class RandomizedQuickSort {
         }
         swap(array, i+1, right);
         return i+1;
-    }
-
-    private static int getRandom(int min, int max) {
-        return min + RANDOM.nextInt(max - min + 1);
     }
 
     public static void main(String[] args) {
