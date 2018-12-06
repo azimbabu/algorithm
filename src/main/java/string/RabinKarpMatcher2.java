@@ -4,40 +4,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RabinKarpMatcher {
+public class RabinKarpMatcher2 {
 
-    private static final int BASE = 256;
-    private static final int MOD = 13;
+    private static final int PRIME = 101;
 
     public static List<Integer> match(String text, String pattern) {
-        return match(text, pattern, BASE, MOD);
-    }
-
-    private static List<Integer> match(String text, String pattern, int d, int q) {
-        int n = text.length();
         int m = pattern.length();
-        int h = 1;
+        int n = text.length();
 
-        int p = 0;
-        int t = 0;
-
-        for (int i = 0; i < m; i++) {   // pre-processing
-            p = Math.floorMod((d * p + pattern.charAt(i)), q);
-            t = Math.floorMod((d * t + text.charAt(i)), q);
-
-            if (i > 0) {    // calculate d ^ (m-1) mod q and avoid overflow
-                h = Math.floorMod(Math.floorMod(h, q) * Math.floorMod(d, q), q);    // (x * y) mod p = ( (x mod p)*(y mod p) ) mod p
-            }
-        }
-
+        long patternHash = calculateHash(pattern, m);
+        long textHash = calculateHash(text, m);
         List<Integer> result = new ArrayList<>();
-        for (int shift = 0; shift <= n-m; shift++) {
-            if (p == t && compare(text, pattern, shift, shift + m - 1, 0, m-1)) {
+
+        for (int shift = 0; shift <= n - m; shift++) {
+            if (patternHash == textHash && compare(text, pattern, shift, shift + m - 1, 0, m-1)) {
                 result.add(shift);
             }
 
             if (shift < n - m) {
-                t = Math.floorMod((d * (t - h * text.charAt(shift)) + text.charAt(shift + m)), q);
+                textHash = calculateRollingHash(text, textHash, shift, shift + m, m);
             }
         }
 
@@ -55,13 +40,32 @@ public class RabinKarpMatcher {
         return true;
     }
 
+    private static long calculateHash(String str, int length) {
+        long hash = 0;
+        for (int i = 0; i < length; i++) {
+            hash += str.charAt(i) * Math.pow(PRIME, i);
+        }
+        return hash;
+    }
+
+    private static long calculateRollingHash(String text,
+                                             long currentHash,
+                                             int outgoingIndex,
+                                             int incomingIndex,
+                                             int patternLength) {
+        long newHash = currentHash - text.charAt(outgoingIndex);
+        newHash /= PRIME;
+        newHash += text.charAt(incomingIndex) * Math.pow(PRIME, patternLength-1);
+        return newHash;
+    }
+
     public static void main(String[] args) {
         testCase("acaabc", "aab", Arrays.asList(2));
         testCase("2359023141526739921", "31415", Arrays.asList(6));
     }
 
     private static void testCase(String text, String pattern, List<Integer> expected) {
-        RabinKarpMatcher stringMatching = new RabinKarpMatcher();
+        RabinKarpMatcher2 stringMatching = new RabinKarpMatcher2();
         List<Integer> actual = stringMatching.match(text, pattern);
         System.out.println("Valid shifts : " + actual);
         if (!actual.equals(expected)) {

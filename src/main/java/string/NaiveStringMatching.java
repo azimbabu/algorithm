@@ -9,21 +9,22 @@ public class NaiveStringMatching {
     public static List<Integer> match(String text, String pattern) {
         int n = text.length();
         int m = pattern.length();
-        List<Integer> validShifts = new ArrayList<>();
+        List<Integer> result = new ArrayList<>();
 
         for (int shift = 0; shift <= n - m; shift++) {
-            if (compare(text, pattern, shift)) {
-                validShifts.add(shift);
+            if (compare(text, pattern, shift, shift + m - 1, 0, m-1)) {
+                result.add(shift);
             }
         }
 
-        return validShifts;
+        return result;
     }
 
-    private static boolean compare(String text, String pattern, int shift) {
-        int m = pattern.length();
-        for (int i = 0; i < m; i++) {
-            if (text.charAt(shift + i) != pattern.charAt(i)) {
+    private static boolean compare(String text, String pattern,
+                                   int textStart, int textEnd,
+                                   int patternStart, int patternEnd) {
+        for (int i = textStart, j = patternStart; i <= textEnd && j <= patternEnd; i++, j++) {
+            if (text.charAt(i) != pattern.charAt(j)) {
                 return false;
             }
         }
@@ -32,6 +33,7 @@ public class NaiveStringMatching {
 
     public static void main(String[] args) {
         testCase("acaabc", "aab", Arrays.asList(2));
+        testCase("000010001010001", "0001", Arrays.asList(1, 5, 11));
     }
 
     private static void testCase(String text, String pattern, List<Integer> expected) {
