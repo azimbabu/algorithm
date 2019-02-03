@@ -10,22 +10,18 @@ public class FibonacciDP {
      * @return
      */
     public int fibonacciNumberMemoized(int n) {
-        int[] fibonacci = new int[n+1];
-
-        Arrays.fill(fibonacci, Integer.MIN_VALUE);
-        fibonacci[0] = 0;
-        fibonacci[1] = 1;
-
-        return fibonacciNumberHelper(fibonacci, n);
+        int[] dp = new int[n+1];
+        return fibonacciNumberHelper(n, dp);
     }
 
-    private int fibonacciNumberHelper(int[] fibonacci, int n) {
-        if (fibonacci[n] >= 0) {
-            return fibonacci[n];
-        } else {
-            fibonacci[n] = fibonacciNumberHelper(fibonacci, n-1) + fibonacciNumberHelper(fibonacci, n-2);
-            return fibonacci[n];
+    private int fibonacciNumberHelper(int n, int[] dp) {
+        if (n < 2) {
+            return n;
+        } else if (dp[n] == 0) {
+            dp[n] = fibonacciNumberHelper(n-1, dp) + fibonacciNumberHelper(n-2, dp);
         }
+
+        return dp[n];
     }
 
     public int fibonacciNumberBottomUp(int n) {
