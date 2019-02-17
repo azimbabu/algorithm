@@ -62,6 +62,25 @@ public class MaximumRibbonCut {
         return dp[index][totalLength];
     }
 
+    public int countRibbonPiecesBottomUpDP(int[] ribbonLengths, int totalLength) {
+        int[][] dp = new int[ribbonLengths.length][1+totalLength];
+
+        for (int i = 0; i < dp.length; i++) {
+            dp[i][0] = 0;
+        }
+
+        for (int i = 0; i < dp.length; i++) {
+            for (int length = 1; length <= totalLength; length++) {
+                int withCurrent = length >= ribbonLengths[i] ? dp[i][length - ribbonLengths[i]] : Integer.MIN_VALUE;
+                withCurrent = withCurrent != Integer.MIN_VALUE ? withCurrent + 1 : withCurrent;
+                int withoutCurrent = i > 0 ? dp[i-1][length] : Integer.MIN_VALUE;
+                dp[i][length] = Math.max(withCurrent, withoutCurrent);
+            }
+        }
+
+        return dp[ribbonLengths.length-1][totalLength] != Integer.MIN_VALUE ? dp[ribbonLengths.length-1][totalLength] : -1;
+    }
+
     public static void main(String[] args) {
         MaximumRibbonCut ribbonCut = new MaximumRibbonCut();
         System.out.println(ribbonCut.countRibbonPiecesBruteForce(new int[]{2, 3, 5}, 5));   // 2
@@ -73,5 +92,10 @@ public class MaximumRibbonCut {
         System.out.println(ribbonCut.countRibbonPiecesTopDownDP(new int[]{2, 3}, 7));      // 3
         System.out.println(ribbonCut.countRibbonPiecesTopDownDP(new int[]{3, 5, 7}, 13));  // 3
         System.out.println(ribbonCut.countRibbonPiecesTopDownDP(new int[]{3, 5}, 7));      // -1
+
+        System.out.println(ribbonCut.countRibbonPiecesBottomUpDP(new int[]{2, 3, 5}, 5));   // 2
+        System.out.println(ribbonCut.countRibbonPiecesBottomUpDP(new int[]{2, 3}, 7));      // 3
+        System.out.println(ribbonCut.countRibbonPiecesBottomUpDP(new int[]{3, 5, 7}, 13));  // 3
+        System.out.println(ribbonCut.countRibbonPiecesBottomUpDP(new int[]{3, 5}, 7));      // -1
     }
 }

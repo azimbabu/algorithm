@@ -24,6 +24,11 @@ public class FibonacciDP {
         return dp[n];
     }
 
+    /**
+     * Bottom up DP
+     * @param n
+     * @return
+     */
     public int fibonacciNumberBottomUp(int n) {
         int[] fibonacci = new int[n+1];
 
@@ -37,9 +42,25 @@ public class FibonacciDP {
         return fibonacci[n];
     }
 
+    public int fibonacciNumberBottomUpOptimized(int n) {
+        if (n < 2) {
+            return n;
+        }
+
+        int first = 0;
+        int second = 1;
+        for (int i = 2; i <= n; i++) {
+            int current = first + second;
+            first = second;
+            second = current;
+        }
+        return second;
+    }
+
     public static void main(String[] args) {
         fibonacciDPDemo();
         fibonacciBottomUpDemo();
+        fibonacciBottomUpOptimizedDemo();
     }
 
     private static void fibonacciDPDemo() {
@@ -53,6 +74,13 @@ public class FibonacciDP {
         FibonacciDP fibonacciDP = new FibonacciDP();
         for (int i = 2; i <= 10; i++) {
             System.out.println(String.format("i = %d, fibonacci : %d", i, fibonacciDP.fibonacciNumberBottomUp(i)));
+        }
+    }
+
+    private static void fibonacciBottomUpOptimizedDemo() {
+        FibonacciDP fibonacciDP = new FibonacciDP();
+        for (int i = 2; i <= 10; i++) {
+            System.out.println(String.format("i = %d, fibonacci : %d", i, fibonacciDP.fibonacciNumberBottomUpOptimized(i)));
         }
     }
 }
